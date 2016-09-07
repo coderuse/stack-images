@@ -1,0 +1,25 @@
+{
+  "name": "stack-images",
+  "description": "Stack small images to form a bigger image",
+  "main": "src/site/index.html",
+  "authors": [
+    "Arnab Das <arnab@coderuse.com>"
+  ],
+  "license": "Apache-2.0",
+  "keywords": [
+    "stack",
+    "images"
+  ],
+  "homepage": "https://github.com/coderuse/stack-images",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "babylonjs": "^2.4.1"
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "name": "stack-images",
+  "version": "0.0.1",
+  "description": "Stack small images to form a bigger image",
+  "main": "Gruntfile.js",
+  "scripts": {
+    "test": "karma",
+    "postinstall": "bower install && cp lib/vendor/babylonjs/dist/babylon.2.4.d.ts lib/typings/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/coderuse/stack-images.git"
+  },
+  "keywords": [
+    "stack",
+    "images"
+  ],
+  "author": "Arnab Das <arnab@coderuse.com>",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/coderuse/stack-images/issues"
+  },
+  "homepage": "https://github.com/coderuse/stack-images#readme",
+  "devDependencies": {
+    "config": "1.21.0",
+    "grunt": "1.0.1",
+    "grunt-contrib-clean": "1.0.0",
+    "grunt-contrib-connect": "1.0.2",
+    "grunt-contrib-copy": "1.0.0",
+    "grunt-contrib-sass": "1.0.0",
+    "grunt-contrib-watch": "1.0.0",
+    "grunt-webpack": "1.0.11",
+    "source-map-loader": "0.1.5",
+    "ts-loader": "0.8.2",
+    "webpack": "1.13.1",
+    "webpack-dev-server": "1.14.1"
+  }
+}
