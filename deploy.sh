@@ -24,9 +24,9 @@ SSH_REPO=${REPO/https:\/\/github.com\//git@github.com:}
 SHA=`git rev-parse --verify HEAD`
 
 # Attaching deploy key to SSH
-chmod 600 id_rsa
+chmod 600 stack-images
 eval `ssh-agent -s`
-ssh-add id_rsa
+ssh-add stack-images
 
 # Clone the existing gh-pages for this repo into out/
 # Create a new empty branch if gh-pages doesn't exist yet (should only happen on first deply)
