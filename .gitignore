@@ -119,7 +119,7 @@ build/
 .tmp/
 
 # Definitely typed files
-typings/
+lib/typings/babylon*
 
 # SASS
 .sass-cache/
