@@ -30,6 +30,7 @@ module.exports = function (grunt) {
       build: {
         files: [
           { expand: true, cwd: 'lib/vendor/babylonjs/dist/', src: ['babylon.2.4.max.js'], dest: buildPaths.buildLocation },
+          { expand: true, cwd: 'lib/vendor/pepjs/dist/', src: ['pep.js'], dest: buildPaths.buildLocation },
           { expand: true, cwd: buildPaths.assetPath, src: ['**'], dest: buildPaths.buildLocation, filter: 'isFile' }
         ]
       }

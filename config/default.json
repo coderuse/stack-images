@@ -5,13 +5,11 @@
   },
   "buildPaths": {
     "clean": [
-      "build/fonts",
-      "build/img",
-      "build/oauth2",
+      "build/parts",
       "build/*.js",
-      "build/*.json",
       "build/*html",
-      "build/*.css"
+      "build/*.css",
+      "build/*.map"
     ],
     "assetPath": "./assets/",
     "buildLocation": "./build/"

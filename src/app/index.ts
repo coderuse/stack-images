@@ -1,5 +1,8 @@
 /// <reference path="../../lib/typings/index.d.ts" />
 
+// http://doc.babylonjs.com/tutorials/how_to_use_assetsmanager
+// http://www.babylonjs-playground.com/#28QGCJ#1
+
 window.addEventListener('DOMContentLoaded', () => {
   // get the canvas DOM element
   var canvas = <HTMLCanvasElement>document.getElementById('renderCanvas');
@@ -7,46 +10,62 @@ window.addEventListener('DOMContentLoaded', () => {
   // load the 3D engine
   var engine = new BABYLON.Engine(canvas, true);
 
+  // the canvas/window resize event handler
+  window.addEventListener('resize', () => {
+    engine.resize();
+  });
+
   // createScene function that creates and return the scene
   var createScene = function () {
-    // create a basic BJS Scene object
+    // This creates a basic Babylon Scene object (non-mesh)
     var scene = new BABYLON.Scene(engine);
 
-    // create a FreeCamera, and set its position to (x:0, y:5, z:-10)
-    var camera = new BABYLON.FreeCamera('camera1', new BABYLON.Vector3(0, 5, -10), scene);
+    // Change the scene background color to green.
+    scene.clearColor = new BABYLON.Color3(1, 1, 1);
 
-    // target the camera to scene origin
+    // This creates and positions a free camera (non-mesh)
+    var camera = new BABYLON.FreeCamera('camera1', new BABYLON.Vector3(0, 0, -2), scene);
+
+    // This targets the camera to scene origin
     camera.setTarget(BABYLON.Vector3.Zero());
 
-    // attach the camera to the canvas
-    camera.attachControl(canvas, false);
+    camera.inertia = 0;
+    camera.angularSensibility = 1000000;
 
-    // create a basic light, aiming 0,1,0 - meaning, to the sky
+    // This attaches the camera to the canvas
+    camera.attachControl(canvas, true);
+
+    // This creates a light, aiming 0,1,0 - to the sky (non-mesh)
     var light = new BABYLON.HemisphericLight('light1', new BABYLON.Vector3(0, 1, 0), scene);
 
-    // create a built-in "sphere" shape; its constructor takes 5 params: name, width, depth, subdivisions, scene
-    var sphere = BABYLON.Mesh.CreateSphere('sphere1', 16, 2, scene);
+    var assetsManager = new BABYLON.AssetsManager(scene);
 
-    // move the sphere upward 1/2 of its height
-    sphere.position.y = 1;
+    var mesh = BABYLON.Mesh.CreatePlane('plane', 1.5, scene);
+    mesh.scaling.y = 1;
+    var material = new BABYLON.StandardMaterial('material', scene);
 
-    // create a built-in "ground" shape; its constructor takes the same 5 params as the sphere's one
-    var ground = BABYLON.Mesh.CreateGround('ground1', 6, 6, 2, scene);
+    var textureTask = assetsManager.addTextureTask('image task', 'parts/tool_base.png');
+    //var textureTask = assetsManager.addTextureTask('image task', 'http://i.imgur.com/Ni1IqYJ.jpg');
+    textureTask.onSuccess = function (task: BABYLON.TextureAssetTask) {
+      material.diffuseTexture = task.texture;
+      material.ambientColor = BABYLON.Color3.White();
+      material.diffuseTexture.hasAlpha = true;
+      material.diffuseColor = BABYLON.Color3.White();
+      material.specularColor = BABYLON.Color3.White();
+      mesh.material = material;
+    }
 
-    // return the created scene
+    assetsManager.useDefaultLoadingScreen = false;
+    assetsManager.load();
+
     return scene;
   }
 
   // call the createScene function
   var scene = createScene();
 
-  // run the render loop
-  engine.runRenderLoop(() => {
+  // Register a render loop to repeatedly render the scene
+  engine.runRenderLoop(function () {
     scene.render();
-  });
-
-  // the canvas/window resize event handler
-  window.addEventListener('resize', () => {
-    engine.resize();
   });
 });

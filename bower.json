@@ -20,6 +20,7 @@
     "tests"
   ],
   "dependencies": {
-    "babylonjs": "^2.4.1"
+    "babylonjs": "2.4.1",
+    "pepjs": "^0.4.1"
   }
 }
