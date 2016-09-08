@@ -66,10 +66,13 @@
 	        var camera = new BABYLON.FreeCamera('camera1', new BABYLON.Vector3(0, 0, -2), scene);
 	        // This targets the camera to scene origin
 	        camera.setTarget(BABYLON.Vector3.Zero());
+	        // Fix the camera view
 	        camera.inertia = 0;
 	        camera.angularSensibility = 1000000;
 	        // This attaches the camera to the canvas
 	        camera.attachControl(canvas, true);
+	        // Reduce antialiasing
+	        camera.attachPostProcess(new BABYLON.FxaaPostProcess("fxaa", 1.0, camera, BABYLON.Texture.BILINEAR_SAMPLINGMODE, engine, false));
 	        // This creates a light, aiming 0,1,0 - to the sky (non-mesh)
 	        var light = new BABYLON.HemisphericLight('light1', new BABYLON.Vector3(0, 1, 0), scene);
 	        var assetsManager = new BABYLON.AssetsManager(scene);
