@@ -100,15 +100,18 @@ window.addEventListener('DOMContentLoaded', () => {
   });
   part1OriginalAnimationBox.setKeys(part1OriginalKeys);
 
+var toggle = true;
   part1.actionManager.registerAction(new BABYLON.ExecuteCodeAction(
     BABYLON.ActionManager.OnPickTrigger, function () {      
-      if (part1.position.equals(new BABYLON.Vector3(-8.9, -3, 0))) {
+      if (toggle) {
+        toggle = false;
         part1.animations.push(part1DisplacedAnimationBox);
         scene.beginAnimation(part1, 0, 100, false, 1, () => {
           part1.animations.splice(-1,1);
         });
       }
       else {
+        toggle = true;
         part1.animations.push(part1OriginalAnimationBox);
         scene.beginAnimation(part1, 0, 100, false, 1, () => {
           part1.animations.splice(-1,1);
