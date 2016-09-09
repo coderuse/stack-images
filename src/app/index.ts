@@ -60,6 +60,61 @@ window.addEventListener('DOMContentLoaded', () => {
   var part1 = BABYLON.Mesh.CreatePlane('part1', 25, scene);
   part1.scaling.x = .25;
   part1.scaling.y = .65;
+  part1.actionManager = new BABYLON.ActionManager(scene);
+
+  var part1DisplacedAnimationBox = new BABYLON.Animation('part1_translation',
+    'position', 30, BABYLON.Animation.ANIMATIONTYPE_VECTOR3,
+    BABYLON.Animation.ANIMATIONLOOPMODE_CONSTANT);
+  // An array with all animation keys
+  var part1DisplacedKeys = [];
+
+  //At the animation key 0, the value of scaling is "1"
+  part1DisplacedKeys.push({
+    frame: 0,
+    value: new BABYLON.Vector3(-8.9, -3, 0)
+  });
+
+  //At the animation key 100, the value of scaling is "1"
+  part1DisplacedKeys.push({
+    frame: 100,
+    value: new BABYLON.Vector3(-10, -4, 0)
+  });
+  part1DisplacedAnimationBox.setKeys(part1DisplacedKeys);
+
+  var part1OriginalAnimationBox = new BABYLON.Animation('part1_translation',
+    'position', 30, BABYLON.Animation.ANIMATIONTYPE_VECTOR3,
+    BABYLON.Animation.ANIMATIONLOOPMODE_CONSTANT);
+  // An array with all animation keys
+  var part1OriginalKeys = [];
+
+  //At the animation key 0, the value of scaling is "1"
+  part1OriginalKeys.push({
+    frame: 0,
+    value: new BABYLON.Vector3(-10, -4, 0)
+  });
+
+  //At the animation key 100, the value of scaling is "1"
+  part1OriginalKeys.push({
+    frame: 100,
+    value: new BABYLON.Vector3(-8.9, -3, 0)
+  });
+  part1OriginalAnimationBox.setKeys(part1OriginalKeys);
+
+  part1.actionManager.registerAction(new BABYLON.ExecuteCodeAction(
+    BABYLON.ActionManager.OnPickTrigger, function () {      
+      if (part1.position.equals(new BABYLON.Vector3(-8.9, -3, 0))) {
+        part1.animations.push(part1DisplacedAnimationBox);
+        scene.beginAnimation(part1, 0, 100, false, 1, () => {
+          part1.animations.splice(-1,1);
+        });
+      }
+      else {
+        part1.animations.push(part1OriginalAnimationBox);
+        scene.beginAnimation(part1, 0, 100, false, 1, () => {
+          part1.animations.splice(-1,1);
+        });
+      }
+    }));
   var part1Material = new BABYLON.StandardMaterial('part1Material', scene);
   var part1TextureTask = assetsManager.addTextureTask('part1TextureTask', 'parts/tool_part1.png');
   part1TextureTask.onSuccess = function (task: BABYLON.TextureAssetTask) {
